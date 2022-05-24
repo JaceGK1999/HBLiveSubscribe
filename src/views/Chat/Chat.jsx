@@ -24,12 +24,15 @@ export default function Chat() {
   };
 
   useEffect(() => {
-    getMessages().then(setMessages);
-    // TODO: Subscribe to message changes, using handleMessageReceived
-    // as the callback function
-    // Don't forget to return a cleanup method (`unsubscribe`)
+    getMessages()
+      .then(setMessages)
+      // TODO: Subscribe to message changes, using handleMessageReceived
+      .then(subscribe)
+      // as the callback function
+      // Don't forget to return a cleanup method (`unsubscribe`)
+      .finally(() => unsubscribe);
     // from this useEffect!
-  }, []);
+  }, [handleMessageReceived]);
 
   return (
     <main className={styles.container}>
